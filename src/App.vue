@@ -10,15 +10,15 @@ const lista = ref([
 ])
 
 const tareasPendientes = ref([
-  {id: 1, tarea: "comprar globos"},
-  {id: 2, tarea: "encargar comida"},
-  {id: 3, tarea: "contar vasos"}
+  { id: 1, tarea: "comprar globos" },
+  { id: 2, tarea: "encargar comida" },
+  { id: 3, tarea: "contar vasos" }
 ])
 
 const temas = ref([
-  {id: 1, tema: "Dinosaurios", votos: 0},
-  {id: 2, tema: "Metal", votos: 0},
-  {id: 3, tema: "Los 80", votos: 0}
+  { id: 1, tema: "Dinosaurios", votos: 0 },
+  { id: 2, tema: "Metal", votos: 0 },
+  { id: 3, tema: "Los 80", votos: 0 }
 ])
 
 const nombre = ref("")
@@ -66,12 +66,12 @@ const filtrarPorGenero = computed(() => {
 })
 
 const totalConf = computed(() => {
-  const confirmados =  lista.value.filter(inv => inv.confirmado === true)
+  const confirmados = lista.value.filter(inv => inv.confirmado === true)
   return confirmados.length
 })
 
 const mostrarPend = () => {
-  if(mostrarPendientes.value === true){
+  if (mostrarPendientes.value === true) {
     mostrarPendientes.value = false;
     mensajePendientes = "Mostrar lista de tareas pendientes"
   } else {
@@ -123,24 +123,24 @@ const votarTema = (id) => {
             <option :value="''"></option>
             <option v-for="gen in generos" :value="gen">{{ gen }}</option>
           </select>
-          
-            <div v-if="filtrarPorGenero.length > 0">
-              <div v-for="inv in filtrarPorGenero">
-                <li :class="{ confirmado: inv.confirmado, pendiente: !inv.confirmado }">
-                  nombre: {{ inv.nombre }} | confirmado: {{ inv.confirmado ? 'si' : 'no' }}
-                  <button v-if="!inv.confirmado" @click="confirmarInvitado(inv.nombre)">Confirmar?</button>
-                  <button v-if="inv.confirmado" @click="cancelarInvitado(inv.nombre)">Cancelar?</button>
-                </li>
-              </div>
+
+          <div v-if="filtrarPorGenero.length > 0">
+            <div v-for="inv in filtrarPorGenero">
+              <li :class="{ confirmado: inv.confirmado, pendiente: !inv.confirmado }">
+                nombre: {{ inv.nombre }} | confirmado: {{ inv.confirmado ? 'si' : 'no' }}
+                <button v-if="!inv.confirmado" @click="confirmarInvitado(inv.nombre)">Confirmar?</button>
+                <button v-if="inv.confirmado" @click="cancelarInvitado(inv.nombre)">Cancelar?</button>
+              </li>
             </div>
-            <div v-else>No hay invitados con este filtro</div>
           </div>
+          <div v-else>No hay invitados con este filtro</div>
+        </div>
       </div>
-    
+
       <div class="contador">
         <h2>Total invitados confirmados: {{ totalConf }}</h2>
       </div>
-    
+
       <div>
         <h1>Agregar invitado</h1>
         <div>Nombre: <input type="text" name="nombre" v-model="nombre" /></div>
@@ -159,30 +159,32 @@ const votarTema = (id) => {
       <h1>Tareas pendientes</h1>
       <div class="mostrarLista">
         <button @click="mostrarPend()">{{ mensajePendientes }}</button>
-        
-        <div class="tareasPend" >
+
+        <div class="tareasPend">
           <li v-show="mostrarPendientes" v-for="t in tareasPendientes">{{ t.tarea }}</li>
         </div>
-    
+
       </div>
       <div class="temas">
         <h1>Votar temas</h1>
         <div class="listaTemas">
           <table>
-            <tr>
-            <th>
-              Tema
-            </th>
-            <th>
-              Cantidad de votos
-            </th>
-            <th>Votar</th>
-          </tr>
-          <tr v-for="tema in temas">
-            <td>{{ tema.tema }}</td>
-            <td>{{ tema.votos }}</td>
-            <td><button v-on:click="votarTema(tema.id)">Votar</button></td>
-          </tr>
+            <tbody>
+              <tr>
+                <th>
+                  Tema
+                </th>
+                <th>
+                  Cantidad de votos
+                </th>
+                <th>Votar</th>
+              </tr>
+              <tr v-for="tema in temas">
+                <td>{{ tema.tema }}</td>
+                <td>{{ tema.votos }}</td>
+                <td><button v-on:click="votarTema(tema.id)">Votar</button></td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>
@@ -192,7 +194,7 @@ const votarTema = (id) => {
 </template>
 
 <style scoped>
-#app{
+#app {
   margin: 15px;
   width: 100%;
 }
@@ -235,7 +237,9 @@ li {
   justify-content: center;
 }
 
-table, th, td {
+table,
+th,
+td {
   border: 1px dashed #666;
   padding: 5px;
 }
